@@ -1,0 +1,81 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateNgeniusTable extends Migration{
+
+    const table_name = 'ngenius_gateway';
+
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(){
+
+        Schema::create(self::table_name, function (Blueprint $table) {
+
+            /**
+             * Ngenius gateway auto increment id
+             */
+            $table->increments('id');
+
+            /**
+             * Active API key
+             */
+            $table->boolean('active')->unique()->default(false);
+
+            /**
+             * expected values : live,sandbox
+             * it should be unique value
+             */
+            $table->string('type',7)->unique();
+
+            /**
+             * Network international (NGENIUS) API Key
+             * The API key can be found at ngenius payments dashboard
+             * navigate to settings > integrations > service-accounts
+             * Click on the 'EYE' icon to view the API key if it 
+             * is hidden
+             */
+             $table->string('api_key',255)->unique();
+
+             /**
+             * Network International (NGENIUS) Reference Id 
+             * The reference Id can be found at ngenius payments dashboad
+             * navigate to settings > Organisational hierarchy > outlet from the left-hand panel. 
+             * (click on the outlet 2 times)
+             */
+            $table->string('reference_id',255)->unique();
+
+            /**
+             * Network International (NGENIUS) 
+             * API Base Url
+             */
+            $table->string('base_url',255)->unique();
+            
+            /**
+             * Created at, 
+             */
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+           
+            /**
+             * updated_at 
+             */
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+
+        });
+
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(){
+        Schema::dropIfExists(self::table_name);
+    }
+}

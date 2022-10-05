@@ -157,17 +157,17 @@ class NgeniusClient {
             $response = Http::withHeaders($allheaders)->withToken($this->BEARER_TOKEN)->post($this->API_URL,$body);
 
             if(empty($response->json())){
-                throwNgeniusPackageResponse('Failed authorize ngenius, please check your credentials',null,406);
+                throwNgeniusPackageResponse('Failed generate payment url',null,406);
             }
 
-            $response = $response->json();
-            if($response['code'] !== 200){
-                $errors = (!empty($response['errors'])) ? $response['errors'] : null;
-                throwNgeniusPackageResponse($response['message'],$errors,$response['code']);
+            if((!$response->successful())){
+                if(!empty($response['message']) && !empty($response['errors']) && !empty($response['code'])){
+                    throwNgeniusPackageResponse($response['message'],$response['errors'],$response['code']);
+                }
+                throwNgeniusPackageResponse($response);
             }
 
             return $response;
-
         } catch (Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }catch(ConnectionException $connException){

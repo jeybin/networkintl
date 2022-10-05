@@ -43,9 +43,15 @@ final class NgeniusCreateOrderService extends NgeniusClient{
         $this->client = new NgeniusClient();
     }
 
-    public function create($amount,$payer_emailId){
+    public function create(array $request){
         try {
-            $request  = $this->createOrderRequest($amount,$payer_emailId);
+            /**
+             * Generating the order request
+             */
+            $request  = $this->createOrderRequest($request);
+            /**
+             * Sending request to the ngenius client
+             */
             $response = $this->client
                             ->setApi('transactions/outlets/{outlet-reference}/orders')
                             ->execute('post',$request);
@@ -57,13 +63,18 @@ final class NgeniusCreateOrderService extends NgeniusClient{
     }
 
 
-    public function createOrderRequest(string $amount,string $payer_emailId){
+    public function createOrderRequest(array $request){
         try {
+
+            /**
+             * REF : https://docs.ngenius-payments.com/reference/list-of-order-input-attributes
+             */
+
             /**
              * The amount must be convert into minor units
              * Hence multiplying the amount with 100;
              */
-            $amount         = $amount*100;
+            $amount         = $request['amount']*100;
 
             /**
              * Action type is set as purchase 
@@ -80,13 +91,120 @@ final class NgeniusCreateOrderService extends NgeniusClient{
             /**
              * Payer's email id
              */
-            $data['emailAddress'] = $payer_emailId;
+            $data['emailAddress'] = $request['payer_email'];
+
+
+            /**
+             * Language switch (English, Arabic and French available)
+             */
+            $data['language']   = $request['language'];
+
+            /**
+             * Your own, optional reference. Accepted format allows alphanumeric 
+             * characters (Aa-Zz and 0-9), and hyphens (-) only
+             */
+            $data['merchantOrderReference'] = $request['order_reference'];
+
+            
+            /**
+             * merchantAttributes block
+             */
+            $data['merchantAttributes'] = $this->generateMerchantAttributesBlock($request);
+
+
+            /**
+             * Merchants may specify up to 100 custom data fields in a dedicated JSON block called merchantDefinedData. 
+             * In all cases, both the key and value of these key/value pairs is entirely controlled by you, and will be 
+             * reflected on the N-Genius Online portal (in the Order Details) page, and in any order reports you download.
+             * This block will also be returned in any query (GET) against the status of the order, in any web-hooks 
+             * that you define, and in any synchronous responses provided by the N-Genius Online APIs. 
+             */
+            if(!empty($request['merchant_defined'])){
+                // $data['merchantDefinedData'] =  (object)json_decode(json_encode($request['merchant_defined']));
+                $data['merchantDefinedData'] =  $request['merchant_defined'];
+            }
+            
+            /**
+             * billingAddress block
+             */
+            $data['billingAddress'] = $this->generateBillingAddressBlock($request['billing']);
+            
 
             return (array)$data;
         } catch (Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }
     }
+
+    private function generateBillingAddressBlock($billing){
+        
+        /**
+         * Billing address first name
+         */
+        $billing['firstName']   = $billing['first_name'];
+
+        /**
+         * Billing address last name
+         */
+        $billing['lastName']    = $billing['last_name'];
+
+        /**
+         * Billing address
+         */
+        $billing['address1']    = $billing['address'];
+
+        /**
+         * Billing address city : Dubai
+         */
+        $billing['city']        = $billing['city'];
+
+        /**
+         * Billing address country : UAE
+         */
+        $billing['countryCode'] = $billing['country'];
+
+        return $billing;
+    }
+
+
+    private function generateMerchantAttributesBlock($request){
+        /**
+         * URL to redirect card-holder to after payment
+         */
+        $merchantAttr['redirectUrl']          = $request['redirect_url'];
+
+        /**
+         * URL to redirect card-holder to, in the event 
+         * they want to return to shop before completing the payment
+         */
+        $merchantAttr['cancelUrl']            = $request['cancel_url'];
+
+        /**
+         * The text you want to display on the pay-page to 
+         * return a card-holder to your website.
+         * Default 'Continue Shopping' Example 'Return to Basket'
+         */
+        $merchantAttr['cancelText']            = $request['cancel_text'];
+
+        /**
+         * Indicates whether the customer will 
+         * be presented with a payment confirmation page 
+         * before being redirected back to your site.
+         * true (to skip)
+         */
+        $merchantAttr['skipConfirmationPage'] = $request['skip_confirmation_page'];
+
+        /**
+         * Indicates whether the customer will be taken to 
+         * the relevant 3D-Secure program for authentication.
+         * true (to skip)
+         */
+        $merchantAttr['skip3DS']              = $request['skip3DS'];
+
+        return $merchantAttr;
+    }
+
+
 
 
 }

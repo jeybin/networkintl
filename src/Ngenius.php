@@ -8,7 +8,9 @@ use Jeybin\Networkintl\Controllers\NgeniusCreateOrderController;
 
 class Ngenius {
 
-    public $request_for;
+    private $request_for;
+
+    private $request;
 
     /**
      * Function to set public variables for the class
@@ -25,10 +27,16 @@ class Ngenius {
         return $object;
     }
 
-    public function execute($amount,$payer_email){
+    public function request($request){
+        $this->request = $request;
+        return $this;
+    }
+
+    public function execute(){
         $requestType  = $this->request_for;
+
         if($requestType == 'create-order'){
-            return NgeniusCreateOrderController::CreateOrder($amount,$payer_email);
+            return NgeniusCreateOrderController::CreateOrder($this->request);
         }
 
     }

@@ -34,6 +34,12 @@ class CreateNgeniusTable extends Migration{
             $table->string('type',7)->unique();
 
             /**
+             * Configured currency in
+             * Network international
+             */
+            $table->string('currency',3)->default('AED');
+
+            /**
              * Network international (NGENIUS) API Key
              * The API key can be found at ngenius payments dashboard
              * navigate to settings > integrations > service-accounts

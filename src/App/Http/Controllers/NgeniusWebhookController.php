@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Jeybin\Networkintl\App\Http\Middleware\VerifyWebhookSignature;
 
-class WebhookController extends Controller
+class NgeniusWebhookController extends Controller
 {
     public function __construct()
     {

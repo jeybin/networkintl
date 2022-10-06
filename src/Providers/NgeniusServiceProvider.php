@@ -50,6 +50,16 @@ class NgeniusServiceProvider extends ServiceProvider
         $ngenius_gateway_webhook_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_webhooks_table.php");
 
         /**
+         * Config path inside the package
+         */
+        $ngenius_config_package_path = __DIR__.'/../../Config/ngenius-config.php';
+
+        /**
+         * Laravel config path
+         */
+        $ngenius_config_project_path = config_path('ngenius-config.php');
+
+        /**
          * Configurations needed to be published,
          * can publish multiple files, add 
          * more into the array
@@ -64,6 +74,8 @@ class NgeniusServiceProvider extends ServiceProvider
          * vendor 
          */
         $this->publishes($publishConfigs, 'ngenius');
+
+        $this->loadRoutesFrom(__DIR__.'/../Routes/ngenius-api.php');
 
 
         /**

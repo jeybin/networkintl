@@ -12,11 +12,17 @@ class NgeniusWebhookController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(VerifyWebhookSignature::class);
+        // $this->middleware(VerifyWebhookSignature::class);
     }
 
     public function __invoke(Request $request)
     {
+
+        debug($request->all());
+        debug($request->headers->all());
+
+
+        return throwNewResponse('Success',null,200);
         $payload = $request->input();
 
         $model = config('ngenius.webhookModel');

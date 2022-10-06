@@ -40,7 +40,8 @@ return [
     /**
      * Event jobs the listener classes 
      * need to accessed while triggering an event,
-     * comment out the jobs that are not required
+     * uncomment the jobs needed and add the jobs
+     * in the project App\Jobs\NgeniusWebhooks
      * Here you can add more events as you like 
      * please refer for the list of events : 
      * https://docs.ngenius-payments.com/reference/consuming-web-hooks
@@ -50,52 +51,52 @@ return [
         /**
          * Triggered when a payment has been authorized
          */
-        'AUTHORISED' => \App\Jobs\NgeniusWebhoks\Auth\HandleNgeniusAuthorized::class,
+        'AUTHORISED' => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusAuthorized::class,
 
         /**
          * Triggered when the authorization for a payment 
          * has been declined by the card-holder's issuing bank
          */
-        'DECLINED'   => \App\Jobs\NgeniusWebhoks\Auth\HandleNgeniusDeclined::class,
+        'DECLINED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusDeclined::class,
 
-        /**
-         * Triggered when an authorization has been reversed, either automatically 
-         * following a post-authorization fraud screening rejection, or manually 
-         * following an API or portal-based request to reverse the authorization.
-         */
-        'FULL_AUTH_REVERSED'   => \App\Jobs\NgeniusWebhoks\Auth\HandleNgeniusFullAuthReversed::class,
+        // /**
+        //  * Triggered when an authorization has been reversed, either automatically 
+        //  * following a post-authorization fraud screening rejection, or manually 
+        //  * following an API or portal-based request to reverse the authorization.
+        //  */
+        // 'FULL_AUTH_REVERSED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusFullAuthReversed::class,
 
-        /**
-         * Triggered when a request to reverse an authorization has failed. 
-         * Note that, in this circumstance, the payment will remain in an AUTHORISED state.
-         */
-        'FULL_AUTH_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhoks\Auth\HandleNgeniusFullAuthReversed::class,
+        // /**
+        //  * Triggered when a request to reverse an authorization has failed. 
+        //  * Note that, in this circumstance, the payment will remain in an AUTHORISED state.
+        //  */
+        // 'FULL_AUTH_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusFullAuthReversed::class,
 
-        /**
-         * Triggered when the PURCHASE process has succeeded.
-         */
-        'PURCHASED'   => \App\Jobs\NgeniusWebhoks\Purchase\HandleNgeniusPurchaseSuccess::class,
+        // /**
+        //  * Triggered when the PURCHASE process has succeeded.
+        //  */
+        'PURCHASED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseSuccess::class,
 
-        /**
-         * Triggered when the PURCHASE process has been declined.
-         */
-        'PURCHASE_DECLINED'   => \App\Jobs\NgeniusWebhoks\Purchase\HandleNgeniusPurchaseDeclined::class,
+        // /**
+        //  * Triggered when the PURCHASE process has been declined.
+        //  */
+        // 'PURCHASE_DECLINED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseDeclined::class,
 
-        /**
-         * Triggered when the PURCHASE process has been failed.
-         */
-        'PURCHASE_FAILED'   => \App\Jobs\NgeniusWebhoks\Purchase\HandleNgeniusPurchaseFailed::class,
+        // /**
+        //  * Triggered when the PURCHASE process has been failed.
+        //  */
+        // 'PURCHASE_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseFailed::class,
 
-        /**
-         * Triggered when a previous PURCHASE has been reversed either 
-         * through the N-Genius Online portal, or using the APIs.
-         */
-        'PURCHASE_REVERSED'   => \App\Jobs\NgeniusWebhoks\Purchase\HandleNgeniusPurchaseReversed::class,
+        // /**
+        //  * Triggered when a previous PURCHASE has been reversed either 
+        //  * through the N-Genius Online portal, or using the APIs.
+        //  */
+        // 'PURCHASE_REVERSED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseReversed::class,
 
-        /**
-         * Triggered when the request above to reverse a PURCHASE request has failed.
-         */
-        'PURCHASE_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhoks\Purchase\HandleNgeniusPurchaseReverseFailed::class,
+        // /**
+        //  * Triggered when the request above to reverse a PURCHASE request has failed.
+        //  */
+        // 'PURCHASE_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseReverseFailed::class,
 
 
 

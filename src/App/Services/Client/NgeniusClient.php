@@ -1,11 +1,11 @@
 <?php
 
-namespace Jeybin\Networkintl\Services\Client;
+namespace Jeybin\Networkintl\App\Services\Client;
 
 
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Jeybin\Networkintl\Models\NgeniusGateway;
+use Jeybin\Networkintl\App\Models\NgeniusGateway;
 use Illuminate\Http\Client\ConnectionException;
 
 class NgeniusClient {

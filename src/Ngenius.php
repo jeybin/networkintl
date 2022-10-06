@@ -3,8 +3,8 @@
 namespace Jeybin\Networkintl;
 
 use Illuminate\Http\Request;
-use Jeybin\Networkintl\Middleware\NgeniusJsonHeader;
-use Jeybin\Networkintl\Controllers\NgeniusCreateOrderController;
+use Jeybin\Networkintl\App\Http\Middleware\NgeniusJsonHeader;
+use Jeybin\Networkintl\App\Http\Controllers\NgeniusCreateOrderController;
 
 class Ngenius {
 

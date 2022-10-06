@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeybin\Networkintl\Console;
+namespace Jeybin\Networkintl\App\Console;
 
 use Illuminate\Console\Command;
 

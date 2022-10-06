@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeybin\Networkintl\Middleware;
+namespace Jeybin\Networkintl\App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

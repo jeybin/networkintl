@@ -4,7 +4,7 @@ namespace Jeybin\Networkintl\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Jeybin\Networkintl\Facades\NgeniusFacades;
-use Jeybin\Networkintl\Console\InstallNgeniusPackage;
+use Jeybin\Networkintl\App\Console\InstallNgeniusPackage;
 
 class NgeniusServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class NgeniusServiceProvider extends ServiceProvider
         /**
          * Autoloading the helper functions
          */
-        require_once __DIR__ . '/../Helpers/ResponseHelper.php';
+        require_once __DIR__ . '/../App/Helpers/ResponseHelper.php';
 
 
         /**
@@ -30,21 +30,32 @@ class NgeniusServiceProvider extends ServiceProvider
         $timestamp              = date('Y_m_d_His', time());
 
         /**
-         * Path of the migration file inside the composer package
+         * Path of the migration file of ngenius_gateway inside the composer package
          */
-        $migration_package_path = __DIR__.'/../../database/migrations/create_ngenius_table.php.stub';
+        $ngenius_gateway_package_path = __DIR__.'/../../database/migrations/create_ngenius_table.php.stub';
 
         /**
-         * Migration file path where it need to be copied
+         * Migration file of ngenius_gateway path where it need to be copied
          */
-        $migration_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_table.php");
+        $ngenius_gateway_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_table.php");
+
+        /**
+         * Path of the migration file of ngenius_gateway_webhooks inside the composer package
+         */
+        $ngenius_gateway_webhook_package_path = __DIR__.'/../../database/migrations/create_ngenius_webhooks_table.php.stub';
+
+        /**
+         * Migration file of ngenius_gateway_webhooks path where it need to be copied
+         */
+        $ngenius_gateway_webhook_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_webhooks_table.php");
 
         /**
          * Configurations needed to be published,
          * can publish multiple files, add 
          * more into the array
          */
-        $publishConfigs = [$migration_package_path =>$migration_project_path];
+        $publishConfigs = [$ngenius_gateway_package_path =>$ngenius_gateway_project_path,
+                           $ngenius_gateway_webhook_package_path =>$ngenius_gateway_webhook_project_path];
 
         /**
          * Publishes the configuration files

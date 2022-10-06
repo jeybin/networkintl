@@ -1,5 +1,5 @@
 <?php
-namespace Jeybin\Networkintl\Controllers;
+namespace Jeybin\Networkintl\App\Http\Controllers;
 
 
 final class AccessTokenController{

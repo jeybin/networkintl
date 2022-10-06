@@ -1,13 +1,13 @@
 <?php
 
-namespace Jeybin\Networkintl\Controllers;
+namespace Jeybin\Networkintl\App\Http\Controllers;
 
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Jeybin\Networkintl\Requests\NgeniusCreateOrderRequest;
-use Jeybin\Networkintl\Services\NgeniusCreateOrderService;
+use Jeybin\Networkintl\App\Requests\NgeniusCreateOrderRequest;
+use Jeybin\Networkintl\App\Services\NgeniusCreateOrderService;
 
 final class NgeniusCreateOrderController{
 

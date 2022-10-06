@@ -1,9 +1,9 @@
 <?php
 
-namespace Jeybin\Networkintl\Services;
+namespace Jeybin\Networkintl\App\Services;
 
 
-use Jeybin\Networkintl\Services\Client\NgeniusClient;
+use Jeybin\Networkintl\App\Services\Client\NgeniusClient;
 
 final class NgeniusCreateOrderService extends NgeniusClient{
 

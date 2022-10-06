@@ -1,5 +1,5 @@
 <?php
-namespace Jeybin\Networkintl\Models;
+namespace Jeybin\Networkintl\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

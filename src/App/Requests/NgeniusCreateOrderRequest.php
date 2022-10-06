@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeybin\Networkintl\Requests;
+namespace Jeybin\Networkintl\App\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;

@@ -12,31 +12,29 @@ class NgeniusWebhookController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(VerifyWebhookSignature::class);
+        $this->middleware(VerifyWebhookSignature::class);
     }
 
-    public function __invoke(Request $request)
-    {
+    public function __invoke(Request $request){
 
-        debug($request->all());
-        debug($request->headers->all());
-
-
-        return throwNewResponse('Success',null,200);
         $payload = $request->input();
 
-        $model = config('ngenius.webhookModel');
+        $model = config('ngenius-config.webhook-model');
 
         $ngeniusWebhookCall = $model::create([
-            'type' =>  $payload['event']['type'] ?? '',
-            'payload' => $payload,
+            'type'    => $payload['event'] ?? '',
+            'outlet' => $payload['outlet'] ?? '',
+            'ref' => $payload['reference'] ?? '',
+            'email' => $payload['event'] ?? '',
+            'currency' => $payload['event'] ?? '',
+            'amount' => $payload['event'] ?? '',
+            'payload' => $payload ?? '',
         ]);
 
         try {
             $ngeniusWebhookCall->process();
         } catch (\Exception $e) {
             $ngeniusWebhookCall->saveException($e);
-
             throw $e;
         }
     }

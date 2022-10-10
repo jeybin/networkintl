@@ -49,7 +49,7 @@ final class NgeniusCreateOrderController{
 
         
         $validationMessages = [
-            'amount.*'=>'Amount is required in AED,must be a number and greater than zero',
+            'amount.*'=>'Amount is required in '.config('ngenius-config.merchant-currency').' and amount must be a number and greater than zero',
             'payer_email.required'=>'Payer email id is required',
             'payer_email.email'=>'Invalid email format in payer email',
             'redirect_url.*'=>'Redirect url required to redirect once payment is success',

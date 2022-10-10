@@ -35,12 +35,13 @@ final class NgeniusCreateOrderService extends NgeniusClient{
      * the order currency must the same as configured
      * in the dashboard of network international
      */
-    private $order_currency = 'AED';
+    private $order_currency;
 
 
 
     public function __construct(){
-        $this->client = new NgeniusClient();
+        $this->client         = new NgeniusClient();
+        $this->order_currency = config('ngenius-config.merchant-currency');
     }
 
     public function create(array $request){

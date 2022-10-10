@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
-class WebhookExceptions extends Exception
+class NgeniusWebhookExceptions extends Exception
 {
     public static function missingSignature()
     {

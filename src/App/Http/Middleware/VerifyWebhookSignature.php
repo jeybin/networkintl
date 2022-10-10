@@ -4,19 +4,19 @@ namespace Jeybin\Networkintl\App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Jeybin\Networkintl\App\Exceptions\WebhookExceptions;
+use Jeybin\Networkintl\App\Exceptions\NgeniusWebhookExceptions;
 
 class VerifyWebhookSignature
 {
     public function handle($request, Closure $next){
-        $signature = $request->header('X-NGENIUS-Webhook-Signature');
+        $signature = $request->header(config('ngenius-config.webhook-header'));
 
         if (! $signature) {
-            throw WebhookExceptions::missingSignature();
+            throw NgeniusWebhookExceptions::missingSignature();
         }
 
         if (! $this->isValid($signature, $request->getContent())) {
-            throw WebhookExceptions::invalidSignature($signature);
+            throw NgeniusWebhookExceptions::invalidSignature($signature);
         }
 
         return $next($request);
@@ -24,10 +24,10 @@ class VerifyWebhookSignature
 
     protected function isValid(string $signature, string $payload): bool
     {
-        $secret = config('coinbase.webhookSecret');
+        $secret = config('ngenius-config.webhook-secret');
 
         if (empty($secret)) {
-            throw WebhookExceptions::sharedSecretNotSet();
+            throw NgeniusWebhookExceptions::sharedSecretNotSet();
         }
 
         $computedSignature = hash_hmac('sha256', $payload, $secret);

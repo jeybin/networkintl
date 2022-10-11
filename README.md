@@ -1,6 +1,6 @@
 # Network International - Ngenius Payment Gateway Wrapper For Laravel
 
-Jeybin/Ngenius is a wrapper package or in other words a helper package for implementing the Network International (NGENIUS) payment gateway in Laravel Projects.
+jeybin/networkintl is a wrapper package or in other words a helper package for implementing the Network International (NGENIUS) payment gateway in Laravel Projects.
 
 ## Features
 

@@ -10,14 +10,16 @@ use Jeybin\Networkintl\App\Http\Middleware\VerifyWebhookSignature;
 
 class NgeniusWebhookController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(VerifyWebhookSignature::class);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware(VerifyWebhookSignature::class);
+    // }
 
     public function __invoke(Request $request){
 
         $payload = $request->input();
+        debug(">> webhook network intl");
+        debug($request->all());
 
         $model = config('ngenius-config.webhook-model');
 

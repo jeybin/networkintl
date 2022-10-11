@@ -9,7 +9,7 @@ Jeybin/Ngenius is a wrapper package or in other words a helper package for imple
 
 ## Installation
 
-Dillinger requires PHP v7.0+ to run.
+Requires PHP v7.0+ to run.
 Install the jeybin/ngenius using the command
 
 ```sh

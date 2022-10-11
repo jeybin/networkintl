@@ -4,20 +4,17 @@ namespace Jeybin\Networkintl\App\Console;
 
 use Illuminate\Console\Command;
 
-class InstallNgeniusPackage extends Command {
+class PublishNgeniusProviders extends Command {
 
     protected $signature = 'ngenius:install';
 
     protected $description = 'Install the ngenius helper packages';
 
     public function handle() {
-        $this->info('Installing ngenius helper...');
-
-        $this->info('Publishing configuration...');
+        $this->info('Publishing ngenius provider');
 
         $this->call('vendor:publish', [
             '--provider' => "Jeybin\Networkintl\Providers\NgeniusServiceProvider",
-            '--tag' => "ngenius",
             '--force'=>true
         ]);
 

@@ -27,7 +27,7 @@ return [
     /**
      * Webhook secret which generated in the dashboard
      */
-    'webhook-queue-name'  => null,
+    'webhook-queue-name'  => env('NGENIUS_WEBHOOK_QUEUE','ngenius-webhook-queue'),
 
 
     /**

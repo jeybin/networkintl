@@ -65,7 +65,7 @@ final class NgeniusCreateOrderController{
         if ($validator->fails()) {
             $error = $validator->errors()->first();
             $error = (strpos($error,'field')) ? str_replace(' field ',' ',$error) : $error;
-            throwNewResponse($error,[],422);
+            throwNgeniusPackageResponse($error,[],422);
         }
 
         $validated = $validator->validated();

@@ -17,6 +17,10 @@ class NgeniusWebhookController extends Controller
 
     public function __invoke(Request $request){
 
+        
+        
+
+
         $payload = $request->input();
         debug(">> webhook network intl");
         debug($request->all());

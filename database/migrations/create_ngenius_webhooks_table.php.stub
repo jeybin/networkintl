@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateNgeniusWebhooksTable extends Migration{
 
-    const table_name = 'ngenius_gateway_webhook';
+    const table_name = 'ngenius_gateway_webhooks';
 
     /**
      * Run the migrations.

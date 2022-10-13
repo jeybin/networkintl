@@ -135,39 +135,48 @@ class NgeniusClient {
             throwNgeniusPackageResponse('Invalid execute type please check!',null,500);
         }
 
-        if($type == 'post'){
-            return $this->POST_REQUEST($request,$headers);
+        if(empty($this->BEARER_TOKEN)){
+            throwNgeniusPackageResponse('Access token not found, please generate access token to continue',null,422);
         }
+
+        $allheaders = ['Content-Type' =>'application/vnd.ni-payment.v2+json',
+                       'Accept'       =>'application/vnd.ni-payment.v2+json'];
+
+        if(!empty($headers)){
+            $allheaders = array_merge($allheaders,$headers);
+        }
+
+
+        if($type == 'post'){
+            $response =  $this->POST_REQUEST($request,$allheaders);
+        }
+
+        if($type == 'get'){
+            $response =  $this->GET_REQUEST($allheaders);
+        }
+
+
+        if(empty($response->json())){
+            throwNgeniusPackageResponse('Failed generate payment url',null,406);
+        }
+
+        if((!$response->successful())){
+            if(!empty($response['message']) && !empty($response['errors']) && !empty($response['code'])){
+                throwNgeniusPackageResponse($response['message'],$response['errors'],$response['code']);
+            }
+            throwNgeniusPackageResponse($response);
+        }
+
+        return $response;
 
     }
 
-    private function POST_REQUEST($body=[],$headers=[]){
+    private function POST_REQUEST($body=[],$headers){
         try {
-            $allheaders = ['Content-Type'=>'application/vnd.ni-payment.v2+json',
-                          'Accept'       =>'application/vnd.ni-payment.v2+json'];
-                
-            if(!empty($headers)){
-                $allheaders = array_merge($allheaders,$headers);
-            }
+            return Http::withHeaders($headers)
+                            ->withToken($this->BEARER_TOKEN)
+                            ->post($this->API_URL,$body);
 
-            if(empty($this->BEARER_TOKEN)){
-                throwNgeniusPackageResponse('Access token not found, please generate access token to continue',null,422);
-            }
-
-            $response = Http::withHeaders($allheaders)->withToken($this->BEARER_TOKEN)->post($this->API_URL,$body);
-
-            if(empty($response->json())){
-                throwNgeniusPackageResponse('Failed generate payment url',null,406);
-            }
-
-            if((!$response->successful())){
-                if(!empty($response['message']) && !empty($response['errors']) && !empty($response['code'])){
-                    throwNgeniusPackageResponse($response['message'],$response['errors'],$response['code']);
-                }
-                throwNgeniusPackageResponse($response);
-            }
-
-            return $response;
         } catch (Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }catch(ConnectionException $connException){
@@ -177,5 +186,17 @@ class NgeniusClient {
     }
 
 
+    private function GET_REQUEST($headers){
+        try {
+            $headers = ['Accept'       =>'application/vnd.ni-payment.v2+json'];
+            return Http::withHeaders($headers)
+                       ->withToken($this->BEARER_TOKEN)
+                       ->get($this->API_URL);
+        } catch (Exception $exception) {
+            throwNgeniusPackageResponse($exception);
+        }catch(ConnectionException $connException){
+            throwNgeniusPackageResponse($connException);
+        }
+    }
     
 }

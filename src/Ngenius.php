@@ -3,6 +3,7 @@
 namespace Jeybin\Networkintl;
 
 use Illuminate\Http\Request;
+use Jeybin\Networkintl\App\Enums\StatusCodes;
 use Jeybin\Networkintl\App\Http\Middleware\NgeniusJsonHeader;
 use Jeybin\Networkintl\App\Http\Controllers\OrderStatusController;
 use Jeybin\Networkintl\App\Http\Controllers\NgeniusCreateOrderController;
@@ -43,7 +44,10 @@ class Ngenius {
         if($requestType == 'order-status'){
             return OrderStatusController::CheckStatus($this->request);
         }
+    }
 
+    public function Status($result_code){
+        return StatusCodes::find($result_code);
     }
 
 

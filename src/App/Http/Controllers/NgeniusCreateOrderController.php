@@ -5,6 +5,7 @@ namespace Jeybin\Networkintl\App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Jeybin\Networkintl\Ngenius;
 use Illuminate\Support\Facades\Validator;
 use Jeybin\Networkintl\App\Requests\NgeniusCreateOrderRequest;
 use Jeybin\Networkintl\App\Services\NgeniusCreateOrderService;

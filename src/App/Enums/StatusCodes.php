@@ -19,7 +19,8 @@ final class StatusCodes{
             '43'=>'Transaction Declined : Stolen card',
             '51'=>'Transaction Declined : Insufficient funds',
             '54'=>'Transaction Declined : Expired card',
-            '55'=>'Transaction Declined : Incorrect PIN'
+            '55'=>'Transaction Declined : Incorrect PIN',
+            '99'=>'Transaction Failed : The payment gateway could not authenticate the transaction fingerprint.'
         ];
     }
 

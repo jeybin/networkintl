@@ -42,5 +42,8 @@ class HandleNgeniusPurchaseDeclined implements ShouldQueue{
          * Passing the payload/response from the webhook to the 
          * CreatedHandler function in CreateChargeController
          */
+
+         debug(">>>> inside purchase declined job");
+         debug($this->webhookCall);
     }
 }

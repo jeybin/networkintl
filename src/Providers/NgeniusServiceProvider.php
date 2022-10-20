@@ -36,6 +36,12 @@ class NgeniusServiceProvider extends ServiceProvider
          */
         require_once __DIR__ . '/../App/Helpers/ResponseHelper.php';
 
+        /**
+         * Time stamp made as static 
+         * to avoid multiple migration files creation
+         * with multiple time stamp
+         */            
+        $timestamp = '2022_10_20_132000';
 
         /**
          * Path of the migration file of ngenius_gateway inside the composer package
@@ -45,7 +51,7 @@ class NgeniusServiceProvider extends ServiceProvider
         /**
          * Migration file of ngenius_gateway path where it need to be copied
          */
-        $ngenius_gateway_project_path = database_path("migrations/ngenius/create_ngenius_table.php");
+        $ngenius_gateway_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_table.php");
 
         /**
          * Path of the migration file of ngenius_gateway_webhooks inside the composer package
@@ -55,7 +61,7 @@ class NgeniusServiceProvider extends ServiceProvider
         /**
          * Migration file of ngenius_gateway_webhooks path where it need to be copied
          */
-        $ngenius_gateway_webhook_project_path = database_path("migrations/ngenius/create_ngenius_webhooks_table.php");
+        $ngenius_gateway_webhook_project_path = database_path("migrations/ngenius/{$timestamp}_create_ngenius_webhooks_table.php");
 
         /**
          * Migrations needed to be published,

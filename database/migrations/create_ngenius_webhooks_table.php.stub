@@ -15,6 +15,10 @@ class CreateNgeniusWebhooksTable extends Migration{
      */
     public function up(){
 
+        if(Schema::hasTable(self::table_name)){ 
+            return;
+        }
+
         Schema::create(self::table_name, function (Blueprint $table) {
 
             /**

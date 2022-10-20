@@ -15,6 +15,10 @@ class PublishNgeniusMigrationFiles extends Command {
 
         $this->call('vendor:publish', ['--tag' => "ngenius-migrations"]);
 
+        $this->info('Migration files copied !!');
+
+        $this->info('Running migration');
+
         $this->call('migrate',['--path'=>'database/migrations/ngenius']);
 
         $this->info('Installed ngenius');

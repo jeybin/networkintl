@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusPurchaseSuccess implements ShouldQueue{
+class HandleNgeniusPurchaseDeclined implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     

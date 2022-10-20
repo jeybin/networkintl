@@ -44,7 +44,7 @@ class NgeniusGatewayWehooks extends Model{
          * order response
          * eg : if PURCHASE_DECLINED -> event will be ngenius::PURCHASE_DECLINED
          */
-        // event("ngenius::{$this->type}", $this);
+        // event("ngenius::{$this->event_name}", $this);
 
         /**
          * Determining the job classes
@@ -56,7 +56,7 @@ class NgeniusGatewayWehooks extends Model{
          * return null or if the class doesnt exists it will 
          * return exception or else dispatch the job 
          */
-        $jobClass = $this->determineJobClass($this->type);
+        $jobClass = $this->determineJobClass($this->event_name);
 
         if ($jobClass === '') {
             return;
@@ -66,7 +66,11 @@ class NgeniusGatewayWehooks extends Model{
             throw NgeniusWebhookExceptions::jobClassDoesNotExist($jobClass, $this);
         }
 
-        dispatch(new $jobClass($this));
+        try{
+            dispatch(new $jobClass($this));
+        }catch(Exception $e){
+            $this->saveException($e);
+        }
     }
 
     public function saveException(Exception $exception)
@@ -85,9 +89,11 @@ class NgeniusGatewayWehooks extends Model{
 
     protected function determineJobClass(string $eventType): string
     {   
+
         $jobConfigKey = str_replace('.', '_', $eventType);
         
         return config("ngenius-config.webhook-jobs.{$jobConfigKey}", '');
+        
     }
 
     protected function clearException()

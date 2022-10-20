@@ -11,10 +11,10 @@ jeybin/networkintl is a wrapper package or in other words a helper package for i
 ## Installation
 
 Requires PHP v7.0+ to run.
-Install the jeybin/ngenius using the command
+Install the jeybin/networkintl using the command
 
 ```sh
-composer require jeybin/ngenius
+composer require jeybin/networkintl
 ```
 After installation publish the config and service providers using
 ```sh

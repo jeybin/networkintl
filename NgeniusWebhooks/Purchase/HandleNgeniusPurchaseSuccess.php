@@ -4,6 +4,7 @@ namespace App\Jobs\NgeniusWebhooks\Purchase;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,10 +38,13 @@ class HandleNgeniusPurchaseSuccess implements ShouldQueue{
     public function handle()
     {
         /**
-         * you can access the payload of the webhook call with `$this->webhookCall->payload`
-         * 
-         * Passing the payload/response from the webhook to the 
-         * CreatedHandler function in CreateChargeController
+         * you can access the payload of the webhook call with `$this->webhookCall`
+         * Contains object of ngenius_gateway_webhooks data
+         * Passing the payload/response from the webhook to 
+         * the api or controller or to service to do the next steps
          */
+
+        Http::get(route('ngenius-transaction-finalize',['ref'=>$this->webhookCall->order_reference]));;
+
     }
 }

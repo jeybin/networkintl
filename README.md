@@ -84,6 +84,15 @@ The payment request `($paymentUrlRequest)` is an array with following keys.
 | skip_confirmation_page | Boolean value, by default `false` |
 | skip3DS | Boolean value, by default `false` |
 
+To check the status of an order simply pass `order-status` as type with order reference number in the request
+
+```sh
+       Ngenius::type('order-status')
+              ->request('order-reference-number')
+              ->execute()
+              ->json();
+```
+
 ## Reference
 
  - [Laravel Official Documentation](https://laravel.com/docs/9.x/installation)

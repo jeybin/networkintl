@@ -4,7 +4,7 @@ namespace Jeybin\Networkintl\App\Console;
 
 use Illuminate\Console\Command;
 
-class CopyNgeniusMigrationFiles extends Command {
+class PublishNgeniusMigrationFiles extends Command {
 
     protected $signature = 'ngenius:migrate';
 

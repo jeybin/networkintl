@@ -12,16 +12,22 @@ class NgeniusGatewayWehooks extends Model{
 
     protected $table    = 'ngenius_gateway_webhooks';
 
-    protected $fillable = ['event',
-                           'outlet',
-                           'ref',
+    protected $fillable = ['event_id',
+                           'event_name',
+                           'order_reference',
+                           'merchant_order_reference',
                            'email',
                            'currency',
-                           'amount'];
+                           'amount',
+                           'payload',
+                           'exception'];
+    
+    public $guarded = [];
     
     protected $casts = [
                         'payload' => 'array',
                         'exception' => 'array',
+                        'merchant_order_reference'=>'integer'
                     ];
 
 
@@ -29,11 +35,27 @@ class NgeniusGatewayWehooks extends Model{
 
         $this->clearException();
 
-        if ($this->type === '') {
+        if ($this->event_name === '') {
             throw NgeniusWebhookExceptions::missingType($this);
         }
-//        event("ngenius::{$this->type}", $this);
 
+        /**
+         * Can use the event if needed with the name of the 
+         * order response
+         * eg : if PURCHASE_DECLINED -> event will be ngenius::PURCHASE_DECLINED
+         */
+        // event("ngenius::{$this->type}", $this);
+
+        /**
+         * Determining the job classes
+         * ----------------------------------------
+         * The function will be check the job class name 
+         * which are mentioned in webhook-jobs array
+         * inside the ngenius-config file and return the 
+         * Job Name if the job doesn't exists it will
+         * return null or if the class doesnt exists it will 
+         * return exception or else dispatch the job 
+         */
         $jobClass = $this->determineJobClass($this->type);
 
         if ($jobClass === '') {
@@ -62,7 +84,7 @@ class NgeniusGatewayWehooks extends Model{
     }
 
     protected function determineJobClass(string $eventType): string
-    {
+    {   
         $jobConfigKey = str_replace('.', '_', $eventType);
         
         return config("ngenius-config.webhook-jobs.{$jobConfigKey}", '');

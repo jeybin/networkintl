@@ -4,9 +4,9 @@ namespace Jeybin\Networkintl\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Jeybin\Networkintl\Facades\NgeniusFacades;
-use Jeybin\Networkintl\App\Console\CopyNgeniusWebhooks;
+use Jeybin\Networkintl\App\Console\PublishNgeniusWebhooks;
 use Jeybin\Networkintl\App\Console\PublishNgeniusProviders;
-use Jeybin\Networkintl\App\Console\CopyNgeniusMigrationFiles;
+use Jeybin\Networkintl\App\Console\PublishNgeniusMigrationFiles;
 
 class NgeniusServiceProvider extends ServiceProvider
 {   
@@ -115,8 +115,8 @@ class NgeniusServiceProvider extends ServiceProvider
              */
             $this->commands([
                 PublishNgeniusProviders::class,
-                CopyNgeniusMigrationFiles::class,
-                CopyNgeniusWebhooks::class,
+                PublishNgeniusMigrationFiles::class,
+                PublishNgeniusWebhooks::class,
             ]);
         }
 

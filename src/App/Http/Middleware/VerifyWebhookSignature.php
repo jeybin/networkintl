@@ -8,30 +8,56 @@ use Jeybin\Networkintl\App\Exceptions\NgeniusWebhookExceptions;
 
 class VerifyWebhookSignature
 {
+    /**
+     * Custom middleware to verify the 
+     * webhook signture to confirm the
+     * webhook response is trusted
+     * 
+     * The webhook secret and the webhook 
+     * custom header name must be set in
+     * the ngenius dashboard as well as'
+     * in the ngenius config file
+     *
+     * @param [type] $request
+     * @param Closure $next
+     *
+     *  @return void
+     */
     public function handle($request, Closure $next){
-        $signature = $request->header(config('ngenius-config.webhook-header'));
 
-        if (! $signature) {
+        /**
+         * Secret webhook header value
+         * Set in the the ngenius config file.
+         * If empty throw exception
+         */
+        $secret    = config('ngenius-config.webhook-secret');
+        if (empty($secret)) {
+            throw NgeniusWebhookExceptions::sharedSecretNotSet();
+        }
+
+        /**
+         * Getting the webhook header with 
+         * the custom header name that set 
+         * in the ngenius config file 
+         * If empty throw exception
+         */
+        $signature = $request->header(config('ngenius-config.webhook-header'));
+        if (empty($signature)) {
             throw NgeniusWebhookExceptions::missingSignature();
         }
 
-        if (! $this->isValid($signature, $request->getContent())) {
+        /**
+         * Checking if the secret 
+         * and the signture got from the
+         * webhook header is equals 
+         * if not throws exception else continues
+         */
+        if ($signature !== $secret) {
             throw NgeniusWebhookExceptions::invalidSignature($signature);
         }
 
         return $next($request);
     }
 
-    protected function isValid(string $signature, string $payload): bool
-    {
-        $secret = config('ngenius-config.webhook-secret');
 
-        if (empty($secret)) {
-            throw NgeniusWebhookExceptions::sharedSecretNotSet();
-        }
-
-        $computedSignature = hash_hmac('sha256', $payload, $secret);
-
-        return hash_equals($signature, $computedSignature);
-    }
 }

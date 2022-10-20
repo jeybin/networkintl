@@ -4,7 +4,7 @@ namespace Jeybin\Networkintl\App\Console;
 
 use Illuminate\Console\Command;
 
-class CopyNgeniusWebhooks extends Command {
+class PublishNgeniusWebhooks extends Command {
 
     protected $signature = 'ngenius:ngenius-webhooks';
 

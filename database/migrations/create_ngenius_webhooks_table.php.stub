@@ -23,39 +23,49 @@ class CreateNgeniusWebhooksTable extends Migration{
             $table->increments('id');
 
             /**
+             * event id
+             */
+            $table->string('event_id')->nullable();
+
+            /**
              * event name
              */
-            $table->string('event');
+            $table->string('event_name')->nullable();
 
             /**
-             * outletId
+             * event order reference
              */
-            $table->string('outlet');
+            $table->string('order_reference')->nullable();
 
             /**
-             * Payment reference number
+             * merchant order reference
              */
-            $table->string('ref');
+            $table->string('merchant_order_reference')->nullable();
 
-             /**
-             * email address
+            /**
+             * Client email
              */
-            $table->string('email');
+            $table->string('email')->nullable();
 
             /**
              * currencyCode
              */
-            $table->string('currency');
+            $table->string('currency')->nullable();
 
             /**
              * payment amount
              */
-            $table->string('amount');
+            $table->string('amount')->nullable();
 
             /**
-             * payment amount
+             * full payload
              */
-            $table->text('payload');
+            $table->text('payload')->nullable();
+
+            /**
+             * exception if any
+             */
+            $table->text('exception')->nullable();
 
             /**
              * Created at, 

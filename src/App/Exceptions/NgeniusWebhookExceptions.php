@@ -35,6 +35,8 @@ class NgeniusWebhookExceptions extends Exception
 
     public function render($request)
     {
-        return response(['error' => $this->getMessage()], 400);
+        return response(['code'=>400,
+                         'error' => true,
+                         'message'=>$this->getMessage()], 400);
     }
 }

@@ -7,22 +7,22 @@ use Exception;
 use Illuminate\Http\Request;
 use Jeybin\Networkintl\Ngenius;
 use Illuminate\Support\Facades\Validator;
-use Jeybin\Networkintl\App\Requests\NgeniusCreateOrderRequest;
-use Jeybin\Networkintl\App\Services\NgeniusCreateOrderService;
+use Jeybin\Networkintl\App\Requests\CreateOrderRequest;
+use Jeybin\Networkintl\App\Services\CreateOrderService;
 
-final class NgeniusCreateOrderController{
+final class CreateOrderController{
 
-    private $ngeniusCreateOrderService;
+    private $CreateOrderService;
 
     public function __construct(){
-        $this->ngeniusCreateOrderService = new NgeniusCreateOrderService();
+        $this->CreateOrderService = new CreateOrderService();
     }
 
     public function CreateOrder(array $request){
         try {
             $object    = new self;
             $validated = $object->validated($request);
-           return $object->ngeniusCreateOrderService->create($validated);
+           return $object->CreateOrderService->create($validated);
         } catch (Exception $exception) {
             throwNgeniusPackageResponse($exception);
         }

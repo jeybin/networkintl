@@ -5,7 +5,7 @@ namespace Jeybin\Networkintl\App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class NgeniusJsonHeader
+class AcceptJsonHeader
 {
     public function handle(Request $request, Closure $next)
     {

@@ -11,7 +11,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusPurchaseSuccess implements ShouldQueue{
+class HandlePurchaseReversed implements ShouldQueue{
+
+    /**
+     * Event name : PURCHASE_REVERSED
+     * 
+     * Triggered when a previous PURCHASE 
+     * has been reversed either through 
+     * the N-Genius Online portal, or using the APIs.
+     */
+
+
 
     use InteractsWithQueue, Queueable, SerializesModels;
     

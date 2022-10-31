@@ -2,11 +2,11 @@
 
 namespace Jeybin\Networkintl\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Jeybin\Networkintl\Facades\NgeniusFacades;
 use Jeybin\Networkintl\App\Console\PublishNgeniusWebhooks;
 use Jeybin\Networkintl\App\Console\PublishNgeniusProviders;
 use Jeybin\Networkintl\App\Console\PublishNgeniusMigrationFiles;
+use Illuminate\Support\ServiceProvider;
 
 class NgeniusServiceProvider extends ServiceProvider
 {   

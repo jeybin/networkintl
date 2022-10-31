@@ -5,7 +5,7 @@ namespace Jeybin\Networkintl\App\Services;
 
 use Jeybin\Networkintl\App\Services\Client\NgeniusClient;
 
-final class NgeniusOrderStatusService extends NgeniusClient{
+final class OrderStatusService extends NgeniusClient{
 
     public function __construct(){
         $this->client         = new NgeniusClient();

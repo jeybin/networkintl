@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\NgeniusWebhooks\Auth;
+namespace App\Jobs\NgeniusWebhooks\Purchase;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -8,14 +8,17 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-/**
- * Replace model if the default model 
- * is changed
- */
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusDeclined implements ShouldQueue{
+class HandlePurchaseReverseFailed implements ShouldQueue{
+
+    /**
+     * Event name : PURCHASE_REVERSAL_FAILED
+     * 
+     * Triggered when the request above to 
+     * reverse a PURCHASE request has failed.
+     */
 
     use InteractsWithQueue, Queueable, SerializesModels;
     
@@ -49,5 +52,6 @@ class HandleNgeniusDeclined implements ShouldQueue{
          */
 
         Http::get(route('ngenius-transaction-finalize',['ref'=>$this->webhookCall->order_reference]));;
+
     }
 }

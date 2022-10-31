@@ -5,7 +5,7 @@ namespace Jeybin\Networkintl\App\Services;
 
 use Jeybin\Networkintl\App\Services\Client\NgeniusClient;
 
-final class NgeniusCreateOrderService extends NgeniusClient{
+final class CreateOrderService extends NgeniusClient{
 
     /**
      * To accept a payment from a customer, an order is always required so 
@@ -26,7 +26,7 @@ final class NgeniusCreateOrderService extends NgeniusClient{
      * recommend you use the ‘AUTH’ action and capture your customers’ successful 
      * authorizations when you are ready to ship the goods to your customer.
      */
-    private $order_type = 'PURCHASE';
+    private $order_type = 'SALE';
 
 
 
@@ -121,7 +121,6 @@ final class NgeniusCreateOrderService extends NgeniusClient{
              * that you define, and in any synchronous responses provided by the N-Genius Online APIs. 
              */
             if(!empty($request['merchant_defined'])){
-                // $data['merchantDefinedData'] =  (object)json_decode(json_encode($request['merchant_defined']));
                 $data['merchantDefinedData'] =  $request['merchant_defined'];
             }
             

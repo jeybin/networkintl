@@ -2,7 +2,7 @@
 namespace Jeybin\Networkintl\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Jeybin\Networkintl\App\Exceptions\NgeniusWebhookExceptions;
+use Jeybin\Networkintl\App\Exceptions\WebhookExceptions;
 
 /**
  * Class Base
@@ -36,7 +36,7 @@ class NgeniusGatewayWehooks extends Model{
         $this->clearException();
 
         if ($this->event_name === '') {
-            throw NgeniusWebhookExceptions::missingType($this);
+            throw WebhookExceptions::missingType($this);
         }
 
         /**
@@ -63,7 +63,7 @@ class NgeniusGatewayWehooks extends Model{
         }
 
         if (! class_exists($jobClass)) {
-            throw NgeniusWebhookExceptions::jobClassDoesNotExist($jobClass, $this);
+            throw WebhookExceptions::jobClassDoesNotExist($jobClass, $this);
         }
 
         try{

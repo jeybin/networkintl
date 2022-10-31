@@ -6,7 +6,7 @@ namespace Jeybin\Networkintl\App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Jeybin\Networkintl\App\Services\NgeniusOrderStatusService;
+use Jeybin\Networkintl\App\Services\OrderStatusService;
 
 final class OrderStatusController{
 
@@ -17,7 +17,7 @@ final class OrderStatusController{
                 throwNgeniusPackageResponse('Order reference id is required');
             }
 
-            $paymentStatusService = new NgeniusOrderStatusService();
+            $paymentStatusService = new OrderStatusService();
 
             return $paymentStatusService->check($orderReference);
 

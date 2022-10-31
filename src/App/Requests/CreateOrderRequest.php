@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class NgeniusCreateOrderRequest extends FormRequest{
+class CreateOrderRequest extends FormRequest{
 
 
     protected $stopOnFirstFailure = false;
@@ -63,7 +63,7 @@ class NgeniusCreateOrderRequest extends FormRequest{
      */
     public function withValidator($validator){
         if($validator->fails()){
-            throwResponse($validator->errors()->first(),'',422);
+            throwNgeniusPackageResponse($validator->errors()->first(),'',422);
         }
     }
 

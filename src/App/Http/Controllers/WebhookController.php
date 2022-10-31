@@ -6,10 +6,10 @@ namespace Jeybin\Networkintl\App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Jeybin\Networkintl\App\Exceptions\NgeniusWebhookExceptions;
+use Jeybin\Networkintl\App\Exceptions\WebhookExceptions;
 use Jeybin\Networkintl\App\Http\Middleware\VerifyWebhookSignature;
 
-class NgeniusWebhookController extends Controller
+class WebhookController extends Controller
 {
     public function __construct()
     {
@@ -27,13 +27,13 @@ class NgeniusWebhookController extends Controller
          $model = config('ngenius-config.webhook-model');
 
         if(empty($model)){
-            throw NgeniusWebhookExceptions::missingModel();
+            throw WebhookExceptions::missingModel();
         }
 
         $payload = $request->all();
 
         if(empty($payload)){
-            throw NgeniusWebhookExceptions::emptyPayload();
+            throw WebhookExceptions::emptyPayload();
         }
 
         /**

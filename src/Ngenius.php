@@ -4,9 +4,12 @@ namespace Jeybin\Networkintl;
 
 use Illuminate\Http\Request;
 use Jeybin\Networkintl\App\Enums\StatusCodes;
-use Jeybin\Networkintl\App\Http\Middleware\NgeniusJsonHeader;
+use Jeybin\Networkintl\App\Http\Middleware\AcceptJsonHeader;
+use Jeybin\Networkintl\App\Http\Controllers\CancelOrderController;
+use Jeybin\Networkintl\App\Http\Controllers\CreateOrderController;
 use Jeybin\Networkintl\App\Http\Controllers\OrderStatusController;
-use Jeybin\Networkintl\App\Http\Controllers\NgeniusCreateOrderController;
+use Jeybin\Networkintl\App\Http\Controllers\RefundOrderController;
+use Jeybin\Networkintl\App\Http\Controllers\ReverseAuthorizePaymentController;
 
 class Ngenius {
 
@@ -38,12 +41,25 @@ class Ngenius {
         $requestType  = $this->request_for;
 
         if($requestType == 'create-order'){
-            return NgeniusCreateOrderController::CreateOrder($this->request);
+            return CreateOrderController::CreateOrder($this->request);
         }
 
         if($requestType == 'order-status'){
             return OrderStatusController::CheckStatus($this->request);
         }
+
+        if($requestType == 'refund-order'){
+            return RefundOrderController::initate($this->request);
+        }
+
+        if($requestType == 'cancel-order'){
+            return CancelOrderController::cancel($this->request);
+        }
+
+        if($requestType == 'reverse-auth'){
+            return ReverseAuthorizePaymentController::reverse($this->request);
+        }
+
     }
 
     public function Status($result_code){

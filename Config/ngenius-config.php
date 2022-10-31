@@ -53,42 +53,42 @@ return [
          * Triggered when the payment is success
          * fro a PURCHASE order
          */
-        'PURCHASED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseSuccess::class,
+        'PURCHASED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseSuccess::class,
 
         /**
          * Triggered when the payment is declined 
          * for a PURCHASE order
          */
-        'PURCHASE_DECLINED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseDeclined::class,
+        'PURCHASE_DECLINED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseDeclined::class,
 
         /**
          * Triggered when the payment is failed for a
          * PURCHASE order.
          */
-        'PURCHASE_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseFailed::class,
+        'PURCHASE_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseFailed::class,
 
         /**
          * Triggered when a previous PURCHASE has been reversed either 
          * through the N-Genius Online portal, or using the APIs.
          */
-        'PURCHASE_REVERSED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseReversed::class,
+        'PURCHASE_REVERSED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseReversed::class,
 
         /**
          * Triggered when the request above to reverse a PURCHASE request has failed.
          */
-        'PURCHASE_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandleNgeniusPurchaseReverseFailed::class,
+        'PURCHASE_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseReverseFailed::class,
 
 
         /**
          * Triggered when a payment has been authorized
          */
-        // 'AUTHORISED' => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusAuthorized::class,
+        // 'AUTHORISED' => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthAuthorized::class,
 
         /**
          * Triggered when the authorization for a payment 
          * has been declined by the card-holder's issuing bank
          */
-        // 'DECLINED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusDeclined::class,
+        // 'DECLINED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthDeclined::class,
 
         // /**
         //  * Triggered when an authorization has been reversed, either automatically 

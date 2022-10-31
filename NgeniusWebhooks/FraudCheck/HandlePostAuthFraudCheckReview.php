@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\NgeniusWebhooks\Purchase;
+namespace App\Jobs\NgeniusWebhooks\FraudCheck;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -11,10 +11,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusPurchaseReversed implements ShouldQueue{
+class HandlePostAuthFraudCheckReview implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     
+    /**
+     * Event name : POST_AUTH_FRAUD_CHECK_REVIEW
+     * 
+     * Triggered when a payment has been rejected by 
+     * a 3rd party post-authorization fraud screening service.
+     */
+
+
     /** @var WebhookModel */
     public $webhookCall;
 

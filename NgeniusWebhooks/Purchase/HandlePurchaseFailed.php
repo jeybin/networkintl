@@ -11,7 +11,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusPurchaseReverseFailed implements ShouldQueue{
+class HandlePurchaseFailed implements ShouldQueue{
+
+    /**
+     * Event name : PURCHASE_FAILED
+     * 
+     * Triggered when the PURCHASE process has failed.
+     */
+
 
     use InteractsWithQueue, Queueable, SerializesModels;
     
@@ -45,6 +52,5 @@ class HandleNgeniusPurchaseReverseFailed implements ShouldQueue{
          */
 
         Http::get(route('ngenius-transaction-finalize',['ref'=>$this->webhookCall->order_reference]));;
-
     }
 }

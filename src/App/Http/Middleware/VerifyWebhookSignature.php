@@ -4,7 +4,7 @@ namespace Jeybin\Networkintl\App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Jeybin\Networkintl\App\Exceptions\NgeniusWebhookExceptions;
+use Jeybin\Networkintl\App\Exceptions\WebhookExceptions;
 
 class VerifyWebhookSignature
 {
@@ -32,9 +32,9 @@ class VerifyWebhookSignature
          */
         $secret    = config('ngenius-config.webhook-secret');
         if (empty($secret)) {
-            throw NgeniusWebhookExceptions::sharedSecretNotSet();
+            throw WebhookExceptions::sharedSecretNotSet();
         }
-
+        
         /**
          * Getting the webhook header with 
          * the custom header name that set 
@@ -43,7 +43,7 @@ class VerifyWebhookSignature
          */
         $signature = $request->header(config('ngenius-config.webhook-header'));
         if (empty($signature)) {
-            throw NgeniusWebhookExceptions::missingSignature();
+            throw WebhookExceptions::missingSignature();
         }
 
         /**
@@ -53,7 +53,7 @@ class VerifyWebhookSignature
          * if not throws exception else continues
          */
         if ($signature !== $secret) {
-            throw NgeniusWebhookExceptions::invalidSignature($signature);
+            throw WebhookExceptions::invalidSignature($signature);
         }
 
         return $next($request);

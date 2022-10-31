@@ -90,7 +90,7 @@ class NgeniusClient {
          * the settings table 
          */
         $api = (strpos($api,'{outlet-reference}')) ? str_replace('{outlet-reference}',$this->REFERENCE_ID,$api) : $api;
-        $this->API_URL = $this->BASE_URL.'/'.$api;
+        $this->API_URL = $this->BASE_URL.$api;
         return $this;
     }
 
@@ -131,7 +131,7 @@ class NgeniusClient {
 
     protected function execute($type,$request=[],$headers=[]){
         $type = strtolower($type);
-        if(!in_array($type,['post','get'])){
+        if(!in_array($type,['post','get','put'])){
             throwNgeniusPackageResponse('Invalid execute type please check!',null,500);
         }
 
@@ -146,13 +146,16 @@ class NgeniusClient {
             $allheaders = array_merge($allheaders,$headers);
         }
 
-
         if($type == 'post'){
             $response =  $this->POST_REQUEST($request,$allheaders);
         }
 
         if($type == 'get'){
             $response =  $this->GET_REQUEST($allheaders);
+        }
+
+        if($type == 'put'){
+            $response =  $this->PUT_REQUEST($request,$allheaders);
         }
 
 
@@ -198,5 +201,21 @@ class NgeniusClient {
             throwNgeniusPackageResponse($connException);
         }
     }
-    
+
+    private function PUT_REQUEST($body=[],$headers){
+        try {
+            return Http::withHeaders($headers)
+                            ->withToken($this->BEARER_TOKEN)
+                            ->put($this->API_URL,$body);
+
+        } catch (Exception $exception) {
+            throwNgeniusPackageResponse($exception);
+        }catch(ConnectionException $connException){
+            throwNgeniusPackageResponse($connException);
+        }
+
+    }
+
+
+
 }

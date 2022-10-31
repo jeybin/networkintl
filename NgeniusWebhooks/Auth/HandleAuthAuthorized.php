@@ -15,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleNgeniusAuthorized implements ShouldQueue{
+class HandleAuthAuthorized implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     

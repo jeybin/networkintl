@@ -15,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleAuthAuthorized implements ShouldQueue{
+class HandleAuthFailed implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     
@@ -48,5 +48,6 @@ class HandleAuthAuthorized implements ShouldQueue{
          * the api or controller or to service to do the next steps
          */
 
+        Http::get(route('ngenius-transaction-finalize',['ref'=>$this->webhookCall->order_reference]));;
     }
 }

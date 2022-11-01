@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\NgeniusWebhooks\Auth;
+namespace App\Jobs\NgeniusWebhooks\Apm;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Jeybin\Networkintl\App\Models\NgeniusGatewayWehooks;
 
 
-class HandleAuthAuthorized implements ShouldQueue{
+class HandleApmPaymentAccepted implements ShouldQueue{
 
     use InteractsWithQueue, Queueable, SerializesModels;
     

@@ -50,6 +50,41 @@ return [
     'webhook-jobs' => [
 
         /**
+         * Triggered when a payment has been authorized
+         */
+        'AUTHORISED' => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthAuthorized::class,
+
+        /**
+         * Triggered when the authorization for a payment 
+         * has been declined by the card-holder's issuing bank
+         */
+        'DECLINED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthDeclined::class,
+
+        /**
+         * This event is triggered when we get a success response 
+         * from the APM system for a payment.
+         */
+        'APM_PAYMENT_ACCEPTED' => \App\Jobs\NgeniusWebhooks\Apm\HandleApmPaymentAccepted::class,
+
+        /**
+         * Triggered when the authorization process has failed
+         */
+        'AUTHORISATION_FAILED' => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthFailed::class,
+
+        /**
+         * Triggered when an authorization has been reversed, either automatically 
+         * following a post-authorization fraud screening rejection, or manually 
+         * following an API or portal-based request to reverse the authorization.
+         */
+        'FULL_AUTH_REVERSED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleFullAuthReversed::class,
+
+        /**
+         * Triggered when a request to reverse an authorization has failed. 
+         * Note that, in this circumstance, the payment will remain in an AUTHORISED state.
+         */
+        'FULL_AUTH_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleFullAuthReverseFailed::class,
+
+        /**
          * Triggered when the payment is success
          * fro a PURCHASE order
          */
@@ -78,31 +113,28 @@ return [
          */
         'PURCHASE_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Purchase\HandlePurchaseReverseFailed::class,
 
+        /**
+         * Triggered when an AUTHORISED payment has been CAPTURED, in full.
+         */
+        'CAPTURED'   => \App\Jobs\NgeniusWebhooks\Capture\HandleCapturePaymentSuccess::class,
 
         /**
-         * Triggered when a payment has been authorized
+         * Triggered when the CAPTURE process has failed.
          */
-        // 'AUTHORISED' => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthAuthorized::class,
+        'CAPTURE_FAILED'   => \App\Jobs\NgeniusWebhooks\Capture\HandleCapturePaymentFailed::class,
 
         /**
-         * Triggered when the authorization for a payment 
-         * has been declined by the card-holder's issuing bank
+         * Triggered when a previous CAPTURE has been cancelled/voided either through 
+         * the N-Genius Online portal, or using the APIs. Note that the payment 
+         * will then return to an AUTHORISED state.
          */
-        // 'DECLINED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleAuthDeclined::class,
+        'CAPTURE_VOIDED'   => \App\Jobs\NgeniusWebhooks\Capture\HandleCaptureVoidSuccess::class,
 
-        // /**
-        //  * Triggered when an authorization has been reversed, either automatically 
-        //  * following a post-authorization fraud screening rejection, or manually 
-        //  * following an API or portal-based request to reverse the authorization.
-        //  */
-        // 'FULL_AUTH_REVERSED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusFullAuthReversed::class,
-
-        // /**
-        //  * Triggered when a request to reverse an authorization has failed. 
-        //  * Note that, in this circumstance, the payment will remain in an AUTHORISED state.
-        //  */
-        // 'FULL_AUTH_REVERSAL_FAILED'   => \App\Jobs\NgeniusWebhooks\Auth\HandleNgeniusFullAuthReversed::class,
-
+        /**
+         * Triggered when the request above to cancel/void a 
+         * CAPTURE request has failed.
+         */
+        'CAPTURE_VOID_FAILED' => \App\Jobs\NgeniusWebhooks\Capture\HandleCaptureVoidFailed::class,
 
 
     ],

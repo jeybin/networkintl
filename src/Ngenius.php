@@ -9,6 +9,7 @@ use Jeybin\Networkintl\App\Http\Controllers\CancelOrderController;
 use Jeybin\Networkintl\App\Http\Controllers\CreateOrderController;
 use Jeybin\Networkintl\App\Http\Controllers\OrderStatusController;
 use Jeybin\Networkintl\App\Http\Controllers\RefundOrderController;
+use Jeybin\Networkintl\App\Http\Controllers\CancelCaptureController;
 use Jeybin\Networkintl\App\Http\Controllers\ReverseAuthorizePaymentController;
 
 class Ngenius {
@@ -58,6 +59,10 @@ class Ngenius {
 
         if($requestType == 'reverse-auth'){
             return ReverseAuthorizePaymentController::reverse($this->request);
+        }
+
+        if($requestType == 'cancel-capture'){
+            return CancelCaptureController::cancel($this->request);
         }
 
     }

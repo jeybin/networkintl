@@ -131,7 +131,7 @@ class NgeniusClient {
 
     protected function execute($type,$request=[],$headers=[]){
         $type = strtolower($type);
-        if(!in_array($type,['post','get','put'])){
+        if(!in_array($type,['post','get','put','delete'])){
             throwNgeniusPackageResponse('Invalid execute type please check!',null,500);
         }
 
@@ -156,6 +156,10 @@ class NgeniusClient {
 
         if($type == 'put'){
             $response =  $this->PUT_REQUEST($request,$allheaders);
+        }
+
+        if($type == 'delete'){
+            $response =  $this->DELETE_REQUEST($allheaders);
         }
 
 
@@ -213,8 +217,21 @@ class NgeniusClient {
         }catch(ConnectionException $connException){
             throwNgeniusPackageResponse($connException);
         }
-
     }
+
+    private function DELETE_REQUEST($headers){
+        try {
+            $headers = ['Accept'       =>'application/vnd.ni-payment.v2+json'];
+            return Http::withHeaders($headers)
+                       ->withToken($this->BEARER_TOKEN)
+                       ->delete($this->API_URL);
+        } catch (Exception $exception) {
+            throwNgeniusPackageResponse($exception);
+        }catch(ConnectionException $connException){
+            throwNgeniusPackageResponse($connException);
+        }
+    }
+
 
 
 

@@ -49,7 +49,13 @@ final class CreateOrderService extends NgeniusClient{
             /**
              * Generating the order request
              */
+            $return_request_only = (!empty($request['return_request_only'])) ? $request['return_request_only'] : false;
             $request  = $this->createOrderRequest($request);
+            
+            if($return_request_only){
+                return $request;
+            }
+
             /**
              * Sending request to the ngenius client
              */
